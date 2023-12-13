@@ -1,20 +1,22 @@
-require('dotenv').config();
-const { Sequelize } = require('sequelize');
+require("dotenv").config();
+const { Sequelize } = require("sequelize");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
 // const Users = require("./models/Users")
 // const Products = require("./models/Products")
+const Services = require("./models/Services");
 
 const sequelize = new Sequelize(
-   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
-   {
-      logging: false, 
-      native: false, 
-   }
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
+  {
+    logging: false,
+    native: false,
+  }
 );
 
 // Users(sequelize)
 // Products(sequelize)
+Services(sequelize);
 
 const models = sequelize.models;
 
@@ -26,6 +28,6 @@ const models = sequelize.models;
 // models.UserProducts.belongsTo(models.Products, { foreignKey: 'productID' });
 
 module.exports = {
-   ...sequelize.models,
-   conn: sequelize, 
+  ...sequelize.models,
+  conn: sequelize,
 };
