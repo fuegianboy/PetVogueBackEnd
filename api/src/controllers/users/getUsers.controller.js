@@ -29,7 +29,7 @@ const getUsers = async (req, res) => {
       }
 
       if (filters.date_order) {
-        queryOptions.order.push(['date', filters.date_order.toUpperCase()]);
+        queryOptions.order.push(['date', filters.date_order]);
       }
 
       if (filters.firstName_order) {
