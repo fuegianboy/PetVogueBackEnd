@@ -1,14 +1,13 @@
-const { Router } = require('express');
-const { Op } = require('sequelize'); 
-const router = Router();
-/* const { Product } = require('../models/product'); */
 
-router.get('/name', async (req, res) => {
+const { Op } = require('sequelize'); 
+const { Products } = require('../../db');
+
+const name = ('/name', async (req, res) => {
   try {
     const name = req.query.name;
 
     if (name) {
-      let products = await Product.findAll({
+      let products = await Products.findAll({
         where: {
           name: {
             [Op.iLike]: `%${name}%`,
@@ -26,4 +25,4 @@ router.get('/name', async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = name;

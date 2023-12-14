@@ -3,7 +3,8 @@ const { Sequelize } = require('sequelize');
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
 // const Users = require("./models/Users")
-// const Products = require("./models/Products")
+const Products = require("./models/Products")
+
 
 const sequelize = new Sequelize(
    `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
@@ -14,7 +15,7 @@ const sequelize = new Sequelize(
 );
 
 // Users(sequelize)
-// Products(sequelize)
+ Products(sequelize)
 
 const models = sequelize.models;
 
