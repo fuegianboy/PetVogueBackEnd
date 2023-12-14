@@ -1,12 +1,14 @@
 const { Router } = require("express");
-// const usersRouter = require("./users")
+const usersRoutes = require("./usersRoutes");
+const reviewsRouter = require("./reviewsRoutes");
+const productRouter = require("./productsRoutes");
+const servicesRouter = require("./servicesRouter");
 
-const router = Router();
-const servicesRouter = require('./servicesRouter');
+const routes = Router();
 
-router.use("/services", servicesRouter);
+routes.use("/users", usersRoutes);
+routes.use("/reviews", reviewsRouter);
+routes.use("/products", productRouter);
+routes.use("/services", servicesRouter);
 
-router.use("/adrian", (req, res) => {
-  console.log("llegamos a algun lugar--------------#####---------");
-});
-module.exports = router;
+module.exports = routes;
