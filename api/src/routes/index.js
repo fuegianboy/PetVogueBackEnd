@@ -1,12 +1,8 @@
 const { Router } = require("express");
-// const usersRouter = require("./users")
+const usersRoutes = require("./usersRoutes")
 
-const router = Router();
+const routes = Router();
 
-router.use("/adrian", (req, res) =>{
-    console.log("llegamos a algun lugar--------------#####---------")
-})
+routes.use("/users", usersRoutes)
 
-
-
-module.exports = router;
+module.exports = routes;
