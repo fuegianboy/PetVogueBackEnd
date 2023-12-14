@@ -4,7 +4,7 @@ const { Services } = require("../../db");
 const getInactiveServices = async (req, res) => {
   try {
     const inactiveServices = await Services.findAll({
-      where: { status: 'disabled' },
+      where: { status: "disabled" },
     });
     return res.status(200).json(inactiveServices);
   } catch (error) {
