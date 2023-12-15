@@ -1,7 +1,7 @@
 const { Services } = require("../../db");
 
 // Edit service
-const editService = async (req, res) => {
+const updateService = async (req, res) => {
   try {
     const { serviceID } = req.params;
 
@@ -16,16 +16,14 @@ const editService = async (req, res) => {
       return res.status(404).json({ message: "Servicio no encontrado" });
     }
 
-    return res
-      .status(200)
-      .json({
-        message: "Servicio editado exitosamente",
-        service: updatedService[0],
-      });
+    return res.status(200).json({
+      message: "Servicio editado exitosamente",
+      service: updatedService[0],
+    });
   } catch (error) {
     console.error("Error al editar el servicio:", error);
     return res.status(500).json({ message: "Error interno del servidor" });
   }
 };
 
-module.exports = editService;
+module.exports = { updateService };

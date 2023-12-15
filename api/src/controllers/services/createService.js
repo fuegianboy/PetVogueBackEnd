@@ -1,26 +1,39 @@
-const { Services } = require("../../db");
+const { Op } = require('sequelize');
+const { Services } = require('../../db');
 
-//Create Service
 const createService = async (req, res) => {
-  try {
-    const { name, description, category, price, image, status } = req.body;
+  const {
+    name,
+    description,
+    category,
+    price,
+    image,
+    status,
+  } = req.body;
 
-    const newService = await Services.create({
-      name,
-      description,
-      category,
-      price,
-      image,
-      status,
+  try {
+    // Validación de datos
+    if (!name || !description || !category || !image) {
+      return res.status(400).json({ error: 'Datos incompletos' });
+    }
+
+    // Buscar o crear el servicio
+    const [newService, created] = await Services.findOrCreate({
+      where: {
+        [Op.or]: [{ name }, { category }],
+      },
+      defaults: { ...req.body },
     });
 
-    return res
-      .status(201)
-      .json({ message: "Servicio creado exitosamente", service: newService });
+    if (!created) {
+      return res.status(409).json({ error: 'Servicio con este nombre o categoría ya existe.' });
+    }
+
+    return res.status(201).json({ newService, created });
   } catch (error) {
-    console.error("Error al crear el servicio", error);
-    return res.status(500).json({ message: "Error interno del servidor" });
+    console.error(error);
+    return res.status(500).json({ error: error.message });
   }
 };
 
-module.exports = createService;
+module.exports = { createService };

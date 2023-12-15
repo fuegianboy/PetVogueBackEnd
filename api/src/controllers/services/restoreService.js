@@ -25,4 +25,4 @@ const restoreService = async (req, res) => {
   }
 };
 
-module.exports = restoreService;
+module.exports = { restoreService };

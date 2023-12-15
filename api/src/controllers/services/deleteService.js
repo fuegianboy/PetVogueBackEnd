@@ -25,4 +25,4 @@ const deleteService = async (req, res) => {
   }
 };
 
-module.exports = deleteService;
+module.exports = { deleteService };
