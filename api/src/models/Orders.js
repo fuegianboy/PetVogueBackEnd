@@ -41,7 +41,7 @@ module.exports = (sequelize) => {
             allowNull: true,
             validate: {
                 isWithinRange(value) {
-                    if (value < 1 || value > 10) {
+                    if (value < 0 && value > 11) {
                         throw new Error('Valuation should be between 1 and 10.');
                     }
                 },
@@ -77,19 +77,7 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        picture_url:{
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
         currency_id: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        description:{
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        title: {
             type: DataTypes.STRING,
             allowNull: true,
         },
