@@ -1,10 +1,10 @@
-/* const { Reviews } = require('../../db'); */
+const { Reviews } = require('../../db');
 
 const createReview = async (req, res) => {
     try {
         const {
             reviewID,
-            orderID,
+            orderID, 
             review,
             status,
         } = req.body;
@@ -13,7 +13,7 @@ const createReview = async (req, res) => {
 
         const newReview = await Reviews.create({
             reviewID,
-            orderID,
+            orderID, 
             date: currentDate, 
             review,
             status,

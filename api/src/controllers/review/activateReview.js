@@ -1,4 +1,4 @@
-
+const { Reviews } = require('../../db');
 
 const activateReview = async (req, res) => {
     try {

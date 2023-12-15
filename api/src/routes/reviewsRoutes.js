@@ -5,12 +5,12 @@ const { deleteReview } = require("../controllers/review/deleteReview");
 const { activateReview } = require("../controllers/review/activateReview");
 const allReview = require("../controllers/review/allReviews");
 
-const reviewsRouter = Router();
+const reviewsRoutes = Router();
 
 
-reviewsRouter.post("/crearReview", createReview)
-reviewsRouter.delete("/review/delete/:reviewID", deleteReview)
-reviewsRouter.delete("/review/activate/:reviewID", activateReview) 
-reviewsRouter.get("/review", allReview)
+reviewsRoutes.post("/crear", createReview)
+reviewsRoutes.delete("/review/delete/:reviewID", deleteReview)
+reviewsRoutes.delete("/review/activate/:reviewID", activateReview) 
+reviewsRoutes.get("/review", allReview)
 
-module.exports = reviewsRouter;
+module.exports = reviewsRoutes;

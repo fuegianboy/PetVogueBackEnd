@@ -1,4 +1,4 @@
-
+const { Reviews } = require('../../db');
 
 const deleteReview = async (req, res) => {
     try {
