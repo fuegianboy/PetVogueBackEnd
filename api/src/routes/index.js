@@ -1,12 +1,12 @@
 const { Router } = require("express");
 const usersRoutes = require("./usersRoutes")
-const reviewsRouter = require("./reviewsRoutes");
-const productRouter = require("./productsRoutes");
+const reviewsRoutes = require("./reviewsRoutes");
+const productRoutes = require("./productsRoutes");
 
 const routes = Router();
 
 routes.use("/users", usersRoutes)
-routes.use("/reviews", reviewsRouter)
-routes.use("/products", productRouter)
+routes.use("/reviews", reviewsRoutes)
+routes.use("/products", productRoutes)
 
 module.exports = routes;
