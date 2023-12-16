@@ -34,5 +34,9 @@ module.exports = (sequelize) => {
         defaultValue: "enabled",
         allowNull: false,
     },
+    petID: {
+      type: DataTypes.UUID, 
+      allowNull: true,
+    },
   },{timestamps:false});
 };
