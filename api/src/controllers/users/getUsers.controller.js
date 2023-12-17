@@ -19,12 +19,12 @@ const getUsers = async (req, res) => {
 
       if (filters.lastName_filter) {
         queryOptions.where.lastName = {
-          [Op.like]: `%${filters.lastName_filter}%`,
+          [Op.iLike]: `%${filters.lastName_filter}%`,
         };
       }
       if (filters.firstName_filter) {
         queryOptions.where.firstName = {
-          [Op.like]: `%${filters.firstName_filter}%`,
+          [Op.iLike]: `%${filters.firstName_filter}%`,
         };
       }
 
