@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
         },
         productID: {
             type: DataTypes.UUID, 
-            allowNull: false,
+            allowNull: true,
             references: {
                 model: 'Products',
                 key: 'productID',
@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
         },
         serviceID: {
             type: DataTypes.UUID, 
-            allowNull: false,
+            allowNull: true,
             references: {
                 model: 'Services',
                 key: 'serviceID',

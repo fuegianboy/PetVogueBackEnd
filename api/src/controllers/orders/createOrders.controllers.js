@@ -11,10 +11,6 @@ const createOrder = async (req, res) => {
     const product = await Products.findByPk(productID);
     const service = await Services.findByPk(serviceID)
 
-    if (!user || !product || !service) {
-      return res.status(404).json({ error: 'User or Product or Service not found' });
-    }
-
     const order = await Orders.create({
       userID,
       productID,
