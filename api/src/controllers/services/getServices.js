@@ -35,6 +35,12 @@ const getServices = async (req, res) => {
         };
       }
 
+      if (filters.petID_filter) {
+        queryOptions.where.petID = {
+          [Op.eq]: filters.petID_filter,
+        };
+      }
+
       if (filters.price_order) {
         queryOptions.order.push(['price', filters.price_order.toUpperCase()]);
       }
