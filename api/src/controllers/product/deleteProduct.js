@@ -10,7 +10,7 @@ const deleteProduct = async (req, res) => {
             return res.status(404).send('Producto no encontrado');
         }
 
-        await product.update({ status: 'disable' });
+        await product.update({ status: 'disabled' });
 
         return res.sendStatus(200);
     } catch (error) {
