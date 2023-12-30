@@ -2,6 +2,7 @@ const { Router } = require("express");
 
 const usersRoutes = require("./usersRoutes")
 const ordersRoutes = require("./ordersRoutes")
+const mailerRoutes = require("./mailerRoutes")
 
 const reviewsRouter = require("./reviewsRoutes");
 const productRouter = require("./productsRoutes");
@@ -14,5 +15,6 @@ routes.use("/orders", ordersRoutes)
 routes.use("/reviews", reviewsRouter)
 routes.use("/products", productRouter)
 routes.use("/services", servicesRouter);
+routes.use("/mailto", mailerRoutes)
 
 module.exports = routes;
