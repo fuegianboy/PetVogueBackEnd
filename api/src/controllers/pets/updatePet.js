@@ -50,4 +50,4 @@ const updatePet = async (req, res) => {
   }
 };
 
-module.exports = { updatePet };
+module.exports = updatePet;

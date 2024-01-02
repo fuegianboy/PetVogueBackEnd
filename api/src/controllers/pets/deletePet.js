@@ -25,4 +25,4 @@ const deletePet = async (req, res) => {
   }
 };
 
-module.exports = { deletePet };
+module.exports = deletePet;

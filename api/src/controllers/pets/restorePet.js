@@ -23,4 +23,4 @@ const restorePet = async (req, res) => {
   }
 };
 
-module.exports = { restorePet };
+module.exports = restorePet;
