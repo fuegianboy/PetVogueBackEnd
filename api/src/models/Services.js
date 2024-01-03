@@ -34,8 +34,8 @@ module.exports = (sequelize) => {
         defaultValue: "enabled",
         allowNull: false,
     },
-    petID: {
-      type: DataTypes.UUID, 
+    animalType: {
+      type: DataTypes.STRING, 
       allowNull: true,
     },
   },{timestamps:false});
