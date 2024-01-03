@@ -35,9 +35,9 @@ const getServices = async (req, res) => {
         };
       }
 
-      if (filters.petID_filter) {
-        queryOptions.where.petID = {
-          [Op.eq]: filters.petID_filter,
+      if (filters.animalType_filter) {
+        queryOptions.where.animalType = {
+          [Op.eq]: filters.animalType_filter,
         };
       }
 
