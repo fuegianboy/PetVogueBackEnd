@@ -20,7 +20,7 @@ const getOrder = async (req, res) => {
             },
             {
                 model: Services,
-                attributes: ['name', 'description', 'category', 'price', 'status', 'petID'],
+                attributes: ['name', 'description', 'category', 'price', 'status', 'animalType'],
             },
         ],
         order: [],
@@ -113,10 +113,10 @@ const getOrder = async (req, res) => {
                 };
             }
 
-            if (filters.Service_petID_filter) {
+            if (filters.Service_animalType_filter) {
                 queryOptions.include[2].where = {};
-                queryOptions.include[2].where.petID = {
-                    [Op.like]: `%${filters.Service_petID_filter}%`,
+                queryOptions.include[2].where.animalType = {
+                    [Op.like]: `%${filters.Service_animalType_filter}%`,
                 };
             }
 
