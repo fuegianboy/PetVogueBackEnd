@@ -3,6 +3,8 @@ const { Router } = require("express");
 const usersRoutes = require("./usersRoutes")
 const ordersRoutes = require("./ordersRoutes")
 const mailerRoutes = require("./mailerRoutes")
+const assetsRoutes = require("./assetsRoutes")
+const bookingsRoutes = require("./bookingsRoutes")
 
 const reviewsRouter = require("./reviewsRoutes");
 const productRouter = require("./productsRoutes");
@@ -16,5 +18,7 @@ routes.use("/reviews", reviewsRouter)
 routes.use("/products", productRouter)
 routes.use("/services", servicesRouter);
 routes.use("/mailto", mailerRoutes)
+routes.use("/assets", assetsRoutes)
+routes.use("/bookings", bookingsRoutes)
 
 module.exports = routes;
