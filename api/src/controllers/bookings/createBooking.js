@@ -1,15 +1,13 @@
-const { Users, Orders, Pets, Assets } = require('../../db');
+const { Bookings } = require('../../db');
 
 const createBooking = async (req, res) => {
   const { dateTime, description, type, status, userID, orderID, petID, assetID } = req.body;
   try {
-    if (!dateTime || !description || !type || !userID || !assetID ) {
+    if (!dateTime || !description || !type || !assetID || !userID ) {
       return res.status(400).json({ error: "Información incompleta" });
     }
 
-    const user = await Users.findByPk(userID);
-
-    const booking = await Orders.create({
+    const booking = await Bookings.create({
       dateTime, 
       description, 
       type, 
