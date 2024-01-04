@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
     },
     systemRole: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        defaultValue: [],
+        defaultValue: ["usuario"],
         allowNull: false,
     },
     phone: {
@@ -51,7 +51,8 @@ module.exports = (sequelize) => {
     },
     status: {
         type: DataTypes.STRING,
-        allowNull: true,
+        defaultValue: "enabled",
+        allowNull: false,
     },
     favoriteProducts: {
       type: DataTypes.ARRAY(DataTypes.UUID),
