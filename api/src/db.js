@@ -58,6 +58,18 @@ models.Reviews.belongsTo(models.Orders, { foreignKey: 'orderID' });
 models.Orders.hasOne(models.Bookings, { foreignKey: 'orderID' });
 models.Bookings.belongsTo(models.Orders, { foreignKey: 'orderID', allowNull: true });
 
+// relacion Users - Bookings
+models.Users.hasMany(models.Bookings, { foreignKey: 'userID' });
+models.Bookings.belongsTo(models.Users, { foreignKey: 'userID' });
+
+// relacion Pets - Bookings
+models.Pets.hasMany(models.Bookings, { foreignKey: 'petID' });
+models.Bookings.belongsTo(models.Pets, { foreignKey: 'petID' });
+
+// relacion Assets - Bookings
+models.Assets.hasMany(models.Bookings, { foreignKey: 'assetID' });
+models.Bookings.belongsTo(models.Assets, { foreignKey: 'assetID' });
+
 module.exports = {
   ...sequelize.models,
   conn: sequelize,
