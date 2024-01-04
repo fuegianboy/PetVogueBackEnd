@@ -1,6 +1,6 @@
 const { Products } = require('../../db');
 
-const activateProduct = async (req, res) => {
+const restoreProduct = async (req, res) => {
     try {
         const { productID } = req.params;
 
@@ -19,4 +19,4 @@ const activateProduct = async (req, res) => {
     }
 };
 
-module.exports = { activateProduct };
+module.exports = { restoreProduct };

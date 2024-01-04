@@ -9,10 +9,10 @@ const restorePet = require("../controllers/pets/restorePet");
 const updatePet = require("../controllers/pets/updatePet");
 
 //routes
-petRouter.get("/", getPets);
 petRouter.post("/create", createPet);
 petRouter.delete("/delete/:petID", deletePet);
-petRouter.put("/restore/:petID", restorePet);
+petRouter.post("/get", getPets);
 petRouter.put("/update/:petID", updatePet);
+petRouter.patch("/restore/:petID", restorePet);
 
 module.exports = petRouter;
