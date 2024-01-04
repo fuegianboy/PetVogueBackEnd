@@ -4,15 +4,15 @@ const { Router } = require("express");
 const createProduct  = require('../controllers/product/postProduct');
 const {getProduct} = require ('../controllers/product/getProducts')
 const {deleteProduct} = require('../controllers/product/deleteProduct')
-const {activateProduct} = require('../controllers/product/activateProduct')
+const {restoreProduct} = require('../controllers/product/restoreProduct')
 const {editProduct} = require('../controllers/product/editProduct');
 const productRoutes = Router();
 
-productRoutes.post("/crear", createProduct);
-productRoutes.get("/",  getProduct);
+productRoutes.post("/create", createProduct);
 productRoutes.delete("/delete/:productID", deleteProduct)
-productRoutes.delete("/activate/:productID", activateProduct)
-productRoutes.put("/edit/:productID", editProduct);
+productRoutes.post("/get",  getProduct);
+productRoutes.put("/update/:productID", editProduct);
+productRoutes.patch("/restore/:productID", restoreProduct)
 
 module.exports = productRoutes;
 

@@ -9,10 +9,10 @@ const { restoreService } = require("../controllers/services/restoreService");
 const { updateService } = require("../controllers/services/updateService");
 
 //routes
-servicesRouter.post("/get", getServices);
 servicesRouter.post("/create", createService);
 servicesRouter.delete("/delete/:serviceID", deleteService);
-servicesRouter.patch("/restore/:serviceID", restoreService);
+servicesRouter.post("/get", getServices);
 servicesRouter.put("/update/:serviceID", updateService);
+servicesRouter.patch("/restore/:serviceID", restoreService);
 
 module.exports = servicesRouter;
