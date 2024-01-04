@@ -2,11 +2,11 @@ const { Assets } = require("../../db");
 
 const restoreAsset = async (req, res) => {
   try {
-    const { assetID } = req.params;
+    const { id } = req.params;
 
     const restoredAsset = await Assets.update(
       { status: "enabled" },
-      { where: { serviceID, status: "disabled" } }
+      { where: { assetID: id, status: "disabled" } }
     );
 
     if (restoredAsset[0] === 0) {
@@ -20,7 +20,7 @@ const restoreAsset = async (req, res) => {
       .json({ message: "Recurso restaurado exitosamente" });
   } catch (error) {
     console.error("Error al restaurar el Recurso:", error);
-    return res.status(500).json({ message: "Error interno del servidor" });
+    return res.status(500).json({ message: "Error interno del servidor", error: error.message });
   }
 };
 
