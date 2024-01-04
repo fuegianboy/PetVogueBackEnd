@@ -19,7 +19,7 @@ const createUser = async (req, res) => {
 
     try {
         
-        if (!firstName || !lastName || !email || !phone || !status || !systemRole)
+        if (!firstName || !lastName || !email || !phone || !password)
             return res.status(404).json("Incomplete data")
 
         const [newUser, created] = await Users.findOrCreate({
