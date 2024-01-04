@@ -9,11 +9,11 @@ const {restoreAsset} = require("../controllers/assets/restoreAsset")
 
 const assetsRoutes = Router();
 
-assetsRoutes.post("/", createAsset)
-assetsRoutes.delete("/:id", deleteAsset)
-assetsRoutes.get("/", getAsset)
-assetsRoutes.put("/:id", updateAsset)
-assetsRoutes.patch("/:id", restoreAsset)
+assetsRoutes.post("/create", createAsset)
+assetsRoutes.delete("/delete/:id", deleteAsset)
+assetsRoutes.post("/get", getAsset)
+assetsRoutes.put("/update/:id", updateAsset)
+assetsRoutes.patch("/restore/:id", restoreAsset)
 
 module.exports = assetsRoutes;
 

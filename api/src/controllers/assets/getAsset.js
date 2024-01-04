@@ -19,13 +19,13 @@ const getAsset = async (req, res) => {
 
       if (filters.name_filter) {
         queryOptions.where.name = {
-          [Op.like]: `%${filters.name_filter}%`,
+          [Op.iLike]: `%${filters.name_filter}%`,
         };
       }
 
       if (filters.description_filter) {
         queryOptions.where.description = {
-          [Op.like]: `%${filters.description_filter}%`,
+          [Op.iLike]: `%${filters.description_filter}%`,
         };
       }
 
@@ -37,7 +37,7 @@ const getAsset = async (req, res) => {
 
       if (filters.coordinator_filter) {
         queryOptions.where.coordinator = {
-          [Op.eq]: filters.coordinator_filter,
+          [Op.iLike]: `%${filters.coordinator_filter}%`,
         };
       }
 

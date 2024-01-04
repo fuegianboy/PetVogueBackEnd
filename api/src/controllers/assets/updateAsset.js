@@ -2,13 +2,13 @@ const { Assets } = require("../../db");
 
 const updateAsset = async (req, res) => {
   try {
-    const { assetID } = req.params;
+    const { id } = req.params;
 
     const { name, description, status, coordinator } = req.body;
 
     const [updated, updatedAsset] = await Assets.update(
       { name, description, status, coordinator },
-      { where: { assetID }, returning: true }
+      { where: { assetID: id }, returning: true }
     );
 
     if (updated === 0) {
