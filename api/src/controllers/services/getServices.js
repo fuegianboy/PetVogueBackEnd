@@ -31,13 +31,15 @@ const getServices = async (req, res) => {
 
       if (filters.category_filter) {
         queryOptions.where.category = {
-          [Op.like]: `%${filters.category_filter}%`,
+          //[Op.like]: `%${filters.category_filter}%`,
+          [Op.in]: filters.category_filter,
         };
       }
 
       if (filters.animalType_filter) {
         queryOptions.where.animalType = {
-          [Op.eq]: filters.animalType_filter,
+          //[Op.eq]: filters.animalType_filter,
+          [Op.in]: filters.animalType_filter,
         };
       }
 
