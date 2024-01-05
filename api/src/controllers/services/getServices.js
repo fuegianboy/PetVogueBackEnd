@@ -47,6 +47,10 @@ const getServices = async (req, res) => {
         queryOptions.order.push(['price', filters.price_order.toUpperCase()]);
       }
 
+      if (filters.name_order) {
+        queryOptions.name.push(['name', filters.name_order.toUpperCase()]);
+      }
+
       if (filters.status_order) {
         queryOptions.order.push(['status', filters.status_order.toUpperCase()]);
       }
