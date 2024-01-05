@@ -1,5 +1,6 @@
 const { Op } = require("sequelize")
 const { Users } = require("../../db")
+const jwt  = require("jsonwebtoken")
 
 const createUser = async (req, res) => {
     
@@ -19,20 +20,24 @@ const createUser = async (req, res) => {
 
     try {
         
-        if (!firstName || !lastName || !email || !phone || !password)
+        if ( !email )
             return res.status(404).json("Incomplete data")
 
         const [newUser, created] = await Users.findOrCreate({
+            
             where: {
-                [Op.or]: [{ email }, { phone }]
+                [Op.or]: [{ email }]
             },
             defaults: { ...req.body }
         })
-
+        console.log(newUser, "newUser")
         if (!created)
             return res.status(404).json({ error: "User with this email or phone already exists." })
 
-        return res.status(200).json({ newUser, created })
+    const token = jwt.sign({id: newUser.userID}, "miLlaveSecreta", {expiresIn:"1m"})
+    console.log(token, "token")
+    
+        return res.status(200).json({ newUser, created, token })
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: error.message })
