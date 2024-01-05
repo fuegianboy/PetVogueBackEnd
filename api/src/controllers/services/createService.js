@@ -20,7 +20,7 @@ const createService = async (req, res) => {
     // Buscar o crear el servicio
     const [newService, created] = await Services.findOrCreate({
       where: {
-        [Op.or]: [{ name }, { category }],
+        [Op.or]: [{ name }],
       },
       defaults: { ...req.body },
     });
