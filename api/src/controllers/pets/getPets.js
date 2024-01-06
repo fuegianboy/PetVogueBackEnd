@@ -3,11 +3,14 @@ const { Op } = require("sequelize");
 
 const getPets = async (req, res) => {
   try {
-    const { filters } = req.body;
+    const { filters, page, itemsPerPage } = req.body;
 
     const queryOptions = {
       where: {},
       order: [],
+      limit: itemsPerPage,
+      offset: 0,
+      ...(page && {offset: (page - 1) * itemsPerPage})
     };
 
     if (filters) {
@@ -56,7 +59,7 @@ const getPets = async (req, res) => {
       }
     }
 
-    const allPets = await Pets.findAll(queryOptions);
+    const allPets = await Pets.findAndCountAll(queryOptions);
     return res.status(200).json(allPets);
   } catch (error) {
     console.error("Error al obtener todos los pets:", error);

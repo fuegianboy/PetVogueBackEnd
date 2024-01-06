@@ -3,11 +3,14 @@ const { Op } = require('sequelize');
 
 const getAsset = async (req, res) => {
   try {
-    const { filters } = req.body;
+    const { filters, page, itemsPerPage } = req.body;
 
     const queryOptions = {
       where: {},
       order: [],
+      limit: itemsPerPage,
+      offset: 0,
+      ...(page && {offset: (page - 1) * itemsPerPage})
     };
 
     if (filters) {
@@ -50,7 +53,7 @@ const getAsset = async (req, res) => {
       }
     }
 
-    const result = await Assets.findAll(queryOptions);
+    const result = await Assets.findAndCountAll(queryOptions);
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({ message: 'Error al traer datos de los Recursos', error: error.message });
