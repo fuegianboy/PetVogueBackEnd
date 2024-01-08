@@ -3,17 +3,21 @@ const { Products } = require('../../db');
 
 const getProduct = async (req, res) => {
   try {
-    const { filters } = req.body;
+    const { filters, page, itemsPerPage } = req.body
 
     const queryOptions = {
       where: {},
       order: [],
-    };
+      limit: itemsPerPage,
+      offset: 0,
+      ...(page && {offset: (page - 1) * itemsPerPage})
+    }
     
     if (filters) {
       if (filters.name_filter) {
         queryOptions.where.name = {
-          [Op.eq]: filters.name_filter,
+          // [Op.eq]: filters.name_filter,
+          [Op.iLike]: `%${filters.name_filter}%`,
         };
       }
 
@@ -32,12 +36,12 @@ const getProduct = async (req, res) => {
         queryOptions.order.push(['price', filters.price_order]);
       }
 
-      
-    
     }
 
-    const result = await Products.findAll(queryOptions);
+    const result = await Products.findAndCountAll(queryOptions);
+
     return res.status(200).json(result);
+
   } catch (error) {
     return res.status(500).json({ message: 'Error al obtener los productos', error: error.message });
   }
