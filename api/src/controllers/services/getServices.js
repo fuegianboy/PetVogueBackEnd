@@ -51,7 +51,7 @@ const getServices = async (req, res) => {
       }
 
       if (filters.name_order) {
-        queryOptions.name.push(['name', filters.name_order.toUpperCase()]);
+        queryOptions.order.push(['name', filters.name_order.toUpperCase()]);
       }
 
       if (filters.status_order) {
