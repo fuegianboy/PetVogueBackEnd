@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
 const { Users } = require("../../db");
 const SECRET_KEY = process.env.SECRET_KEY;
 
@@ -12,13 +11,11 @@ const loginUsers = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(401).json({ error: "Credenciales incorrectas" });
+      return res.status(401).json({ error: "Email incorrecto" });
     }
 
-    const passwordMatch = await bcrypt.compare(password, user.password);
-
-    if (!passwordMatch) {
-      return res.status(401).json({ error: "Credenciales incorrectas" });
+    if (password !== user.password) {
+      return res.status(401).json({ error: "Contraseña incorrecta" });
     }
 
     const token = jwt.sign({ userID: user.userID }, SECRET_KEY, {
