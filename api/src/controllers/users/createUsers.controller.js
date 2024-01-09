@@ -30,9 +30,9 @@ const createUser = async (req, res) => {
             },
             defaults: { ...req.body }
         })
-        console.log(newUser, "newUser")
+        /* console.log(newUser, "newUser")
         if (!created)
-            return res.status(404).json({ error: "User with this email or phone already exists." })
+            return res.status(404).json({ error: "User with this email or phone already exists." }) */
 
     const token = jwt.sign({id: newUser.userID}, "miLlaveSecreta", {expiresIn:"1m"})
     console.log(token, "token")
