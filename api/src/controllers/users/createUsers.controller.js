@@ -2,6 +2,7 @@ const { Op } = require("sequelize");
 const { Users } = require("../../db");
 const jwt = require("jsonwebtoken");
 const SECRET_KEY = process.env.SECRET_KEY;
+const bcrypt = require('bcrypt');
 
 const createUser = async (req, res) => {
   const {
@@ -31,14 +32,14 @@ const createUser = async (req, res) => {
     }
 
     // Hash de la contraseña antes de almacenarla en la base de datos
-    // const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     // Insertar el nuevo usuario en la base de datos
     const newUser = await Users.create({
       firstName,
       lastName,
       email,
-      password,
+      password: hashedPassword,
       systemRole,
       phone,
       photo,
