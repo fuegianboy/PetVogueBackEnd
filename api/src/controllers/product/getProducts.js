@@ -20,6 +20,12 @@ const getProduct = async (req, res) => {
           [Op.iLike]: `%${filters.name_filter}%`,
         };
       }
+      
+      if (filters.productID_filter) {
+        queryOptions.where.productID = {
+          [Op.eq]: filters.productID_filter,
+        };
+      }
 
       if (filters.type_filter) {
         queryOptions.where.type = {
