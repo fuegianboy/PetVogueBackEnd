@@ -5,7 +5,7 @@ const getBooking = async (req, res) => {
 
     try {
 
-        const { filters } = req.body;
+        const { filters, page, itemsPerPage } = req.body;
 
         const queryOptions = {
         where: {},
@@ -28,6 +28,9 @@ const getBooking = async (req, res) => {
             },
         ],
         order: [],
+        limit: itemsPerPage,
+        offset: 0,
+        ...(page && {offset: (page - 1) * itemsPerPage})
         };
 
     
@@ -145,7 +148,7 @@ const getBooking = async (req, res) => {
 
         }
 
-        const result = await Bookings.findAll(queryOptions);
+        const result = await Bookings.findAndCountAll(queryOptions);
     
         return res.status(200).json(result);
     }

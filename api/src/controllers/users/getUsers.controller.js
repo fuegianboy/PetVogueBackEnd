@@ -3,11 +3,14 @@ const { Users } = require('../../db');
 
 const getUsers = async (req, res) => {
   try {
-    const { filters } = req.body;
+    const { filters, page, itemsPerPage } = req.body;
 
     const queryOptions = {
       where: {},
       order: [],
+      limit: itemsPerPage,
+      offset: 0,
+      ...(page && {offset: (page - 1) * itemsPerPage})
     };
     
     if (filters) {
@@ -38,7 +41,7 @@ const getUsers = async (req, res) => {
     
     }
 
-    const result = await Users.findAll(queryOptions);
+    const result = await Users.findAndCountAll(queryOptions);
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({ message: 'Error retrieving Users records', error: error.message });

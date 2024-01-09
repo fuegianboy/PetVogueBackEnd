@@ -29,7 +29,7 @@ const createProduct = async (req, res) => {
 
     // Validación del tipo
     if (!validateType(type)) {
-      return res.status(400).json({ error: 'Tipo no válido' });
+      return res.status(400).json({ error: 'Tipo no válido: Juguete|Accesorio|Alimento|Medicamento' });
     }
 
     // Validación de la descripción

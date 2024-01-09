@@ -3,11 +3,14 @@ const { Op } = require('sequelize');
 
 const getServices = async (req, res) => {
   try {
-    const { filters } = req.body;
+    const { filters, page, itemsPerPage } = req.body;
 
     const queryOptions = {
       where: {},
       order: [],
+      limit: itemsPerPage,
+      offset: 0,
+      ...(page && {offset: (page - 1) * itemsPerPage})
     };
 
     if (filters) {
@@ -48,7 +51,7 @@ const getServices = async (req, res) => {
       }
 
       if (filters.name_order) {
-        queryOptions.name.push(['name', filters.name_order.toUpperCase()]);
+        queryOptions.order.push(['name', filters.name_order.toUpperCase()]);
       }
 
       if (filters.status_order) {
@@ -56,7 +59,7 @@ const getServices = async (req, res) => {
       }
     }
 
-    const result = await Services.findAll(queryOptions);
+    const result = await Services.findAndCountAll(queryOptions);
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({ message: 'Error retrieving Services records', error: error.message });

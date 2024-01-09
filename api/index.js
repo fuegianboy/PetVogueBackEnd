@@ -10,7 +10,7 @@ const { conn } = require("./src/db.js");
 const PORT = process.env.PORT
 
 server.listen(PORT, async()=>{
-    await conn.sync({ force: true })
+    await conn.sync({ force: false })
     console.log(`is listening at ${PORT}`)
     console.log("**************************    PetVOGUE    ***********************")
 })
