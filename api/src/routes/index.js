@@ -10,6 +10,7 @@ const reviewsRouter = require("./reviewsRoutes");
 const productRouter = require("./productsRoutes");
 const servicesRouter = require("./servicesRouter");
 const petsRouter = require('./petRoutes');
+const mercadopagoRoutes = require("./mercadopagoRoutes");
 
 const routes = Router();
 
@@ -22,5 +23,6 @@ routes.use("/pets", petsRouter);
 routes.use("/mailto", mailerRoutes)
 routes.use("/assets", assetsRoutes)
 routes.use("/bookings", bookingsRoutes)
+routes.use("/mercadopago", mercadopagoRoutes)
 
 module.exports = routes;
