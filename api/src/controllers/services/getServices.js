@@ -22,7 +22,7 @@ const getServices = async (req, res) => {
 
       if (filters.name_filter) {
         queryOptions.where.name = {
-          [Op.like]: `%${filters.name_filter}%`,
+          [Op.iLike]: `%${filters.name_filter}%`,
         };
       }
 
