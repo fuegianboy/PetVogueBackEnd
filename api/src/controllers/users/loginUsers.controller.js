@@ -18,6 +18,12 @@ const loginUsers = async (req, res) => {
       return res.status(401).json({ error: "Contraseña incorrecta" });
     }
 
+    if (user.status === "disabled") {
+      return res
+        .status(401)
+        .json({ error: "Usuario deshabilitado. Contacte al administrador." });
+    }
+
     const token = jwt.sign({ userID: user.userID }, SECRET_KEY, {
       expiresIn: "1h",
     });
