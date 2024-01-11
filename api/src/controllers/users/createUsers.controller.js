@@ -1,6 +1,7 @@
 const { Op } = require("sequelize")
 const { Users } = require("../../db")
 const jwt  = require("jsonwebtoken")
+const SECRET_KEY = process.env.SECRET_KEY;
 
 const createUser = async (req, res) => {
     
@@ -34,7 +35,7 @@ const createUser = async (req, res) => {
         if (!created)
             return res.status(404).json({ error: "User with this email or phone already exists." }) */
 
-    const token = jwt.sign({id: newUser.userID}, "miLlaveSecreta", {expiresIn:"1m"})
+    const token = jwt.sign({id: newUser.userID}, SECRET_KEY, {expiresIn:"1h"})
     console.log(token, "token")
     
         return res.status(200).json({ newUser, created, token })
