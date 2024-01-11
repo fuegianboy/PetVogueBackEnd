@@ -8,6 +8,8 @@ const {
   restoreUser,
 } = require("../controllers/users/restoreUsers.controllers");
 const { loginUsers } = require("../controllers/users/loginUsers.controller");
+/* const { isAuthenticated } = require("../utils/ValidateToken"); */
+
 
 const usersRoutes = Router();
 
