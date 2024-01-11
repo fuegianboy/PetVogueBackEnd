@@ -10,7 +10,6 @@ const loginUsers = async (req, res) => {
     if (!email || !password) {
       return res.status(404).json("Incomplete data");
     }
-    
 
     const existingUser = await Users.findOne({
       where: {
@@ -19,17 +18,7 @@ const loginUsers = async (req, res) => {
     });
 
     if (!existingUser) {
-      return res.status(401).json({ error: "Email incorrecto" });
-    }
-
-    if (password !== existingUser.password) {
-      return res.status(401).json({ error: "Contraseña incorrecta" });
-    }
-
-    if (existingUser.status === "disabled") {
-      return res
-        .status(401)
-        .json({ error: "Usuario deshabilitado. Contacte al administrador." });
+      return res.status(401).json({ error: "Email o contraseña incorrecta" });
     }
 
     const token = jwt.sign({ id: existingUser.userID }, SECRET_KEY, {
