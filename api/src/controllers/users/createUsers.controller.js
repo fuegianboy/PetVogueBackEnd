@@ -24,7 +24,7 @@ const createUser = async (req, res) => {
         if ( !email )
             return res.status(404).json("Incomplete data")
 
-        const [newUser, created] = await Users.findOrCreate({
+        const [user, created] = await Users.findOrCreate({
             
             where: {
                 [Op.or]: [{ email }]
@@ -35,10 +35,10 @@ const createUser = async (req, res) => {
         if (!created)
             return res.status(404).json({ error: "User with this email or phone already exists." }) */
 
-    const token = jwt.sign({id: newUser.userID}, SECRET_KEY, {expiresIn:"1h"})
+    const token = jwt.sign({id: user.userID}, SECRET_KEY, {expiresIn:"1h"})
     console.log(token, "token")
     
-        return res.status(200).json({ newUser, created, token })
+        return res.status(200).json({ user, created, token })
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: error.message })
