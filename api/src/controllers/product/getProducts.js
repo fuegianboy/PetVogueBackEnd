@@ -16,8 +16,12 @@ const getProduct = async (req, res) => {
     if (filters) {
       if (filters.name_filter) {
         queryOptions.where.name = {
-          // [Op.eq]: filters.name_filter,
           [Op.iLike]: `%${filters.name_filter}%`,
+        };
+      }
+      if (filters.description_filter) {
+        queryOptions.where.description = {
+          [Op.iLike]: `%${filters.description_filter}%`,
         };
       }
       
@@ -40,6 +44,10 @@ const getProduct = async (req, res) => {
 
       if (filters.price_order) {
         queryOptions.order.push(['price', filters.price_order]);
+      }
+
+      if (filters.name_order) {
+        queryOptions.order.push(['name', filters.name_order]);
       }
 
     }
