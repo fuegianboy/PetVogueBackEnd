@@ -7,8 +7,8 @@ const reject = require("../controllers/mercadopago/reject")
 const mercadopagoRoutes = Router()
 
 mercadopagoRoutes.post("/redir", mercadopago)
-mercadopagoRoutes.get("/success", createOrder)
-mercadopagoRoutes.get("/reject", reject)
+mercadopagoRoutes.post("/success", createOrder)
+mercadopagoRoutes.post("/reject", reject)
 
 
 module.exports = mercadopagoRoutes

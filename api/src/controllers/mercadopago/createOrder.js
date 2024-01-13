@@ -12,7 +12,7 @@ const createOrder = async (req, res) => {
     // // console.error(error)
     
 
-    res.status(201).json("error.message-------------llegaste a aaaaaaaaaaaaaaaaaaaaaaaaa")
+    res.status(200).json("error.message-------------llegaste a aaaaaaaaaaaaaaaaaaaaaaaaa")
     // const newArray = arrayProducts.map(e => {
     //     return {
     //         title: e.name,
