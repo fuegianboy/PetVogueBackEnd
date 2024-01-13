@@ -9,6 +9,7 @@ const {
 } = require("../controllers/users/restoreUsers.controllers");
 const { loginUsers } = require("../controllers/users/loginUsers.controller");
 /* const { isAuthenticated } = require("../utils/ValidateToken"); */
+const { registerUser } = require("../controllers/users/registerUser.controller");
 
 
 const usersRoutes = Router();
@@ -19,5 +20,6 @@ usersRoutes.post("/get", getUsers);
 usersRoutes.put("/update/:id", updateUser);
 usersRoutes.patch("/restore/:id", restoreUser);
 usersRoutes.post("/login", loginUsers);
+usersRoutes.post("/register", registerUser);
 
 module.exports = usersRoutes;
