@@ -2,52 +2,35 @@ const {Users, Products} = require("../../db")
 
 
 const createOrder = async (req, res) => {
-    
-    console.log(" llego algo---------------------------------------------------------------")
-    
-    console.log(" respuesta req.params------------ " + req.params + "------------")
-    console.log(" respuesta req.query------------ " + req.query + "------------")
-    console.log(" respuesta req.body------------ " + req.body + "------------")
+
+  try {
+
+    const {status, external_reference} = req.query
+    const usuarioID = "d59f5eec-6225-45c0-829a-c6976af90dd9"
+
+    await Users.update({
+      dni: external_reference
+    },
+    {
+      where: {userID: usuarioID}
+    })
 
 
-    // console.log("pago rechazado por algun motivo")
-    // // console.error(error)
-    
+    // const { external_reference } = req.params;
+    // const usuarioID = "a3d022a6-8e57-4b88-b5d0-b631a0776b3e"
 
-    res.status(200).json("error.message-------------llegaste a aaaaaaaaaaaaaaaaaaaaaaaaa")
-    // const newArray = arrayProducts.map(e => {
-    //     return {
-    //         title: e.name,
-    //         description: e.descripcion,
-    //         picture_url: e.imagen,
-    //         category_id: e.categoria,
-    //         unit_price: e.precio,
-    //         currency_id: "ARS",
-    //         quantity: e.cantidad
-    //     }
-    // })
-    
-    // try {
+    // await Users.update({
+    //     dni: external_reference, 
+    // },
+    // {
+    //   where: {usuarioID}
+    // });
 
-    //     const preferences = {
-    //         items: newArray,
-    //         back_urls: {
-    //             success: `${req.protocol}://${req.get(`host`)}/mercadopago/success`,
-    //             failure: `${req.protocol}://${req.get(`host`)}/mercadopago/success`,
-    //         },
-    //         auto_return: "approved"
-    //     }
-
-    //     const respuesta = await mercadopago.preferences.create(preferences)
-    //     console.log(respuesta)
-    //     res.status(200).json(respuesta.response.init_point)
-  
-    // } catch (error) {
-  
-    //     console.error(error)
-    //     res.status(500).json(error.message)
-  
-    // }
+    return res.json("datos");
+} catch (error) {
+    console.error('Error al editar Order:', error);
+    return res.status(500).send('Error interno del servidor');
+}
   
   }
   module.exports = createOrder
