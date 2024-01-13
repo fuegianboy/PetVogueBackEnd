@@ -27,14 +27,15 @@ const mercadoPago = async (req, res) => {
         const preferences = {
             items: newArray,
             back_urls: {
-                success: "http://www.google.com",
-                failure: "http://localhost:3000/fallo",
+                success: `${req.protocol}://${req.get(`host`)}/mercadopago/success`,
+                failure: `${req.protocol}://${req.get(`host`)}/mercadopago/reject`,
             },
-            auto_return: "approved"
+            // auto_return: "approved"
+
         }
 
         const respuesta = await mercadopago.preferences.create(preferences)
-        console.log(respuesta)
+        // console.log(respuesta)
         res.status(200).json(respuesta.response.init_point)
   
     } catch (error) {
