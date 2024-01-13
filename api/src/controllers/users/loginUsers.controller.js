@@ -8,7 +8,7 @@ const loginUsers = async (req, res) => {
 
   try {
     if (!email || !password) {
-      return res.status(404).json("Incomplete data");
+      return res.status(404).json("Datos incompletos");
     }
 
     const existingUser = await Users.findOne({
@@ -17,6 +17,9 @@ const loginUsers = async (req, res) => {
       },
     });
 
+    if (!email) {
+      return res.status(401).json({ error: "Email invalido" })
+    }
     if (!existingUser) {
       return res.status(401).json({ error: "Email o contraseña incorrecta" });
     }
