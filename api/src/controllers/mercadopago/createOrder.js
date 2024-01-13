@@ -26,7 +26,7 @@ const createOrder = async (req, res) => {
     //   where: {usuarioID}
     // });
 
-    return res.json("datos");
+    return res.status(200).json("datos");
 } catch (error) {
     console.error('Error al editar Order:', error);
     return res.status(500).send('Error interno del servidor');
