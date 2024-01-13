@@ -5,8 +5,10 @@ const createOrder = async (req, res) => {
     
     console.log(" llego algo---------------------------------------------------------------")
     
-    // console.log(" respuesta req.params------------ " + req.params + "------------")
-    // console.log(" respuesta req.query------------ " + req.query + "------------")
+    console.log(" respuesta req.params------------ " + req.params + "------------")
+    console.log(" respuesta req.query------------ " + req.query + "------------")
+    console.log(" respuesta req.body------------ " + req.body + "------------")
+
 
     // console.log("pago rechazado por algun motivo")
     // // console.error(error)
