@@ -11,6 +11,7 @@ const productRouter = require("./productsRoutes");
 const servicesRouter = require("./servicesRouter");
 const petsRouter = require('./petRoutes');
 const mercadopagoRoutes = require("./mercadopagoRoutes");
+const referencesRoutes = require("./referencesRoutes")
 
 const routes = Router();
 
@@ -24,5 +25,6 @@ routes.use("/mailto", mailerRoutes)
 routes.use("/assets", assetsRoutes)
 routes.use("/bookings", bookingsRoutes)
 routes.use("/mercadopago", mercadopagoRoutes)
+routes.use("/references", referencesRoutes)
 
 module.exports = routes;

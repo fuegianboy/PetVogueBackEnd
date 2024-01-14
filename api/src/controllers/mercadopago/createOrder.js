@@ -1,36 +1,79 @@
-const {Users, Products} = require("../../db")
+const { References, Orders, Users, Products } = require("../../db")
+const mailTo = require("../mailer/mailTo")
+
+const getUser = async (userID) => {
+
+  const user = await Users.findOne({
+    where: {userID}
+  })
+
+  return user
+}
 
 
-const createOrder = async (req, res) => {
+const createOrders = async (req, res) => {
 
   try {
 
-    const {status, external_reference} = req.query
-    const usuarioID = "d59f5eec-6225-45c0-829a-c6976af90dd9"
+    const {external_reference, status, payment_id, merchant_order_id} = req.query
 
-    await Users.update({
-      dni: external_reference
-    },
-    {
-      where: {userID: usuarioID}
-    })
+    const reference = await References.findByPk(external_reference)
 
+    const user = await Users.findByPk(reference.data.userID)
 
-    // const { external_reference } = req.params;
-    // const usuarioID = "a3d022a6-8e57-4b88-b5d0-b631a0776b3e"
+    for (const item of reference.data.items) {
+      
+      const {productID, quantity} = item
 
-    // await Users.update({
-    //     dni: external_reference, 
-    // },
-    // {
-    //   where: {usuarioID}
-    // });
+      const product = await Products.findByPk(productID)
+      
+      if (product) {
+        const finalStock = product.stock -quantity
+        await product.update({
+          stock: finalStock >= 0 ? finalStock : product.stock,
+          status: finalStock === 0 ? "disabled" : product.status
+        })
+      }
 
-    return res.status(200).json("datos");
-} catch (error) {
+      const order = await Orders.create({
+        userID: reference.data.userID, 
+        productID, 
+        // serviceID, 
+        date: Date.now(), 
+        quantity, 
+        amount: product.price, 
+        type: "product", 
+        mp_status: status, 
+        mp_payment_id: payment_id, 
+        mp_merchant_order_id: merchant_order_id, 
+        mp_external_reference: external_reference
+
+      })
+    }
+
+    // Vacío el carrito de compras
+    const cart = await user.update({ cart: [] });
+    // Vacío la tabla reference
+    const disableReference = await reference.update({status: "disabled"})
+    // Mando un correo al usuario
+
+    const emailData = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: "fuegianboy@gmail.com",
+      subject: `Pago Realizado`,
+      html: `Señor ${user.firstName}. El pago se ha realizado sin inconvenientes. Numero de transacción ${payment_id} Estado ${status} Se creo el registro de la compra`,
+      link: "www.google.com",
+    };
+
+    await mailTo({ body: emailData }, res);
+
+    return res.status(200);
+  } catch (error) {
     console.error('Error al editar Order:', error);
     return res.status(500).send('Error interno del servidor');
-}
-  
   }
-  module.exports = createOrder
+  
+}
+
+module.exports = createOrders
