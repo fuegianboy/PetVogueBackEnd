@@ -1,16 +1,6 @@
 const { References, Orders, Users, Products } = require("../../db")
 const mailTo = require("../mailer/mailTo")
 
-const getUser = async (userID) => {
-
-  const user = await Users.findOne({
-    where: {userID}
-  })
-
-  return user
-}
-
-
 const createOrders = async (req, res) => {
 
   try {
