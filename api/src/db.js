@@ -11,6 +11,7 @@ const Pets = require("./models/Pets")
 const Services = require("./models/Services")
 const Assets = require("./models/Assets")
 const Bookings = require("./models/Bookings")
+const References = require("./models/References")
 
 const sequelize = new Sequelize(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
@@ -29,6 +30,7 @@ Pets(sequelize)
 Services(sequelize)
 Assets(sequelize)
 Bookings(sequelize)
+References(sequelize)
 
 const models = sequelize.models;
 
