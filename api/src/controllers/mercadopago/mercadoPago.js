@@ -14,25 +14,12 @@ const createReference = async (data) => {
   
   return newReference
 }
-const deleteAllReferences = async () => {
-  try {
-    const deletedRows = await References.destroy({
-      where: {},
-      truncate: true,
-    });
-
-    return deletedRows;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
 
 const mercadoPago = async (req, res) => {
   try {
     
     const { items, userID } = req.body;
-    await deleteAllReferences() //---------------------------------------------------------
+
     const reference = await createReference(req.body)
     
     const preferenceItems = []
