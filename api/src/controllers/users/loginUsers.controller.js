@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { Op } = require("sequelize");
 const { Users } = require("../../db");
 const SECRET_KEY = process.env.SECRET_KEY;
 
@@ -6,50 +7,32 @@ const loginUsers = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await Users.findOne({
-      where: { email },
+    if (!email || !password) {
+      return res.status(404).json("Datos incompletos");
+    }
+
+    const existingUser = await Users.findOne({
+      where: {
+        [Op.and]: [{ email, password }],
+      },
     });
 
-    if (!user) {
-      return res.status(401).json({ error: "Email incorrecto" });
+    if (!email) {
+      return res.status(401).json({ error: "Email invalido" })
+    }
+    if (!existingUser) {
+      return res.status(401).json({ error: "Email o contraseña incorrecta" });
     }
 
-    if (password !== user.password) {
-      return res.status(401).json({ error: "Contraseña incorrecta" });
-    }
-
-    if (user.status === "disabled") {
-      return res
-        .status(401)
-        .json({ error: "Usuario deshabilitado. Contacte al administrador." });
-    }
-
-    const token = jwt.sign({ userID: user.userID }, SECRET_KEY, {
-      expiresIn: "1h",
+    const token = jwt.sign({ id: existingUser.userID }, SECRET_KEY, {
+      expiresIn: "1m",
     });
+    console.log(token, "token");
 
-    const userResponse = {
-      id: user.userID,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      password: user.password,
-      systemRole: user.systemRole,
-      phone: user.phone,
-      photo: user.photo,
-      address: user.address,
-      birth: user.birth,
-      dni: user.dni,
-      status: user.status,
-      favoriteProducts: user.favoriteProducts,
-      favoriteServices: user.favoriteServices,
-      cart: user.cart
-    }
-
-    res.json({ token, user: userResponse });
+    return res.status(200).json({ user: existingUser, token });
   } catch (error) {
-    console.error("Error en el inicio de sesión:", error);
-    res.status(500).json({ error: "Error en el servidor" });
+    console.error(error);
+    return res.status(500).json({ error: error.message });
   }
 };
 
