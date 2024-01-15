@@ -10,6 +10,7 @@ const {
 const { loginUsers } = require("../controllers/users/loginUsers.controller");
 /* const { isAuthenticated } = require("../utils/ValidateToken"); */
 const { registerUser } = require("../controllers/users/registerUser.controller");
+const { adminLogin } = require("../controllers/users/adminLogin.controller");
 
 
 const usersRoutes = Router();
@@ -21,5 +22,6 @@ usersRoutes.put("/update/:id", updateUser);
 usersRoutes.patch("/restore/:id", restoreUser);
 usersRoutes.post("/login", loginUsers);
 usersRoutes.post("/register", registerUser);
+usersRoutes.post("/admin/login", adminLogin)
 
 module.exports = usersRoutes;

@@ -3,7 +3,7 @@ const { Op } = require("sequelize");
 const { Users } = require("../../db");
 const SECRET_KEY = process.env.SECRET_KEY;
 
-const loginUsers = async (req, res) => {
+const adminLogin = async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -19,6 +19,11 @@ const loginUsers = async (req, res) => {
 
     if (!existingUser) {
       return res.status(401).json({ error: "Email o contraseña incorrecta" });
+    }
+    if (!existingUser.systemRole.includes("admin")) {
+      return res.status(403).json({
+        error: "Acceso no autorizado. Se requiere rol de administrador.",
+      });
     }
 
     if (existingUser.status !== "enabled") {
@@ -41,4 +46,4 @@ const loginUsers = async (req, res) => {
   }
 };
 
-module.exports = { loginUsers };
+module.exports = { adminLogin };
