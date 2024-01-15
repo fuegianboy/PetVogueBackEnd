@@ -1,7 +1,7 @@
 const { Op } = require("sequelize");
 const { Users } = require("../../db");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt"); // Asegúrate de tener la librería bcrypt instalada
+// const bcrypt = require("bcrypt");
 const SECRET_KEY = process.env.SECRET_KEY;
 
 const registerUser = async (req, res) => {
@@ -36,14 +36,14 @@ const registerUser = async (req, res) => {
     }
 
     // Hashea la contraseña antes de almacenarla en la base de datos
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // const hashedPassword = await bcrypt.hash(password, 10);
 
     // Crea un nuevo usuario
     const newUser = await Users.create({
       firstName,
       lastName,
       email,
-      password: hashedPassword,
+      password,
       systemRole,
       phone,
       photo,

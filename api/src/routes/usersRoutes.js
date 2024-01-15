@@ -10,6 +10,7 @@ const { addCart } = require("../controllers/users/addCart")
 const { removeCart } = require("../controllers/users/removeCart")
 /* const { isAuthenticated } = require("../utils/ValidateToken"); */
 const { registerUser } = require("../controllers/users/registerUser.controller");
+const { adminLogin } = require("../controllers/users/adminLogin.controller");
 
 
 const usersRoutes = Router();
@@ -25,5 +26,6 @@ usersRoutes.put("/addcart", addCart);
 usersRoutes.put("/removecart", removeCart);
 
 usersRoutes.post("/register", registerUser);
+usersRoutes.post("/admin/login", adminLogin)
 
 module.exports = usersRoutes;
