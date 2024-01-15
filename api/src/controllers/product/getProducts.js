@@ -33,7 +33,8 @@ const getProduct = async (req, res) => {
 
       if (filters.type_filter) {
         queryOptions.where.type = {
-          [Op.like]: `%${filters.type_filter}%`,
+          // [Op.like]: `%${filters.type_filter}%`,
+          [Op.in]: filters.type_filter,
         };
       }
       if (filters.status_filter) {
