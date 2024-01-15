@@ -8,9 +8,9 @@ const allReview = require("../controllers/review/allReviews");
 const reviewsRoutes = Router();
 
 
-reviewsRoutes.post("/crear", createReview)
-reviewsRoutes.delete("/review/delete/:reviewID", deleteReview)
-reviewsRoutes.delete("/review/activate/:reviewID", activateReview) 
-reviewsRoutes.get("/review", allReview)
+reviewsRoutes.post("/create", createReview)
+reviewsRoutes.delete("/delete/:reviewID", deleteReview)
+reviewsRoutes.delete("/activate/:reviewID", activateReview) 
+reviewsRoutes.get("/get", allReview)
 
 module.exports = reviewsRoutes;
