@@ -9,6 +9,7 @@ const { loginUsers } = require("../controllers/users/loginUsers.controller");
 const { addCart } = require("../controllers/users/addCart")
 const { removeCart } = require("../controllers/users/removeCart")
 /* const { isAuthenticated } = require("../utils/ValidateToken"); */
+const { registerUser } = require("../controllers/users/registerUser.controller");
 
 
 const usersRoutes = Router();
@@ -19,7 +20,10 @@ usersRoutes.post("/get", getUsers);
 usersRoutes.put("/update/:id", updateUser);
 usersRoutes.patch("/restore/:id", restoreUser);
 usersRoutes.post("/login", loginUsers);
+
 usersRoutes.put("/addcart", addCart);
 usersRoutes.put("/removecart", removeCart);
+
+usersRoutes.post("/register", registerUser);
 
 module.exports = usersRoutes;
