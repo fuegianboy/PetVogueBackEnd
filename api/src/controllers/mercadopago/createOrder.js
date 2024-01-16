@@ -11,6 +11,10 @@ const createOrders = async (req, res) => {
 
     const user = await Users.findByPk(reference.data.userID)
 
+    let detailText= `<p style="color: black; font-weight: bold;">Señor ${user.firstName}.<br/>El pago se ha realizado sin inconvenientes.<br/> Numero de transacción ${payment_id} Estado ${status} </p>`
+
+    let total = 0
+
     for (const item of reference.data.items) {
       
       const {productID, quantity} = item
@@ -39,7 +43,17 @@ const createOrders = async (req, res) => {
         mp_external_reference: external_reference
 
       })
+      
+      let subtotal = 0
+      subtotal = quantity * product.price
+      total = total + subtotal
+
+      detailText += `<p style="color: black; font-weight: bold;">Producto: ${product.name} - Cantidad: ${quantity} - Precio: ${product.price} - SubTotal: ${subtotal}</p>`
+
+      // detailText += `Producto: ${product.name} - Cantidad: ${quantity} - Precio: ${product.price} - SubTotal: ${subtotal}<hr/> `;
     }
+
+    detailText += `<p style="color: black; font-weight: bold;">Total  ----------------------: ${total}</p>`
 
     // Vacío el carrito de compras
     const cart = await user.update({ cart: [] });
@@ -52,7 +66,7 @@ const createOrders = async (req, res) => {
       lastName: user.lastName,
       email: "fuegianboy@gmail.com",
       subject: `Pago Realizado`,
-      html: `Señor ${user.firstName}. El pago se ha realizado sin inconvenientes. Numero de transacción ${payment_id} Estado ${status} Se creo el registro de la compra`,
+      html: detailText,
       link: "www.google.com",
     };
 

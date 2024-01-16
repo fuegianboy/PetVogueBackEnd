@@ -46,6 +46,12 @@ const getServices = async (req, res) => {
         };
       }
 
+      if (filters.status_filter) {
+        queryOptions.where.status = {
+          [Op.like]: `%${filters.status_filter}%`,
+        };
+      }
+
       if (filters.price_order) {
         queryOptions.order.push(['price', filters.price_order.toUpperCase()]);
       }
