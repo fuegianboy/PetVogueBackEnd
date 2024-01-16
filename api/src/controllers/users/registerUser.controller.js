@@ -3,6 +3,8 @@ const { Users } = require("../../db");
 const jwt = require("jsonwebtoken");
 // const bcrypt = require("bcrypt");
 const SECRET_KEY = process.env.SECRET_KEY;
+const mailTo = require("../mailer/mailTo");
+const message = require("../mailer/message");
 
 const registerUser = async (req, res) => {
   const {
@@ -52,6 +54,34 @@ const registerUser = async (req, res) => {
       dni,
       status,
     });
+    if (newUser) {
+      const emailInfo = {
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        email: newUser.email,
+        subject: "Registro Exitoso",
+        html: `¡Bienvenido! Te has registrado exitosamente en PetVogue. ¡Esperamos que disfrutes de tu experiencia!`,
+        link: "https://petvoguehome-production.up.railway.app/",
+      };
+
+      if (
+        !emailInfo.firstName ||
+        !emailInfo.email ||
+        !emailInfo.subject ||
+        !emailInfo.html ||
+        !emailInfo.link
+      ) {
+        return res.status(404).json("Incomplete data");
+      }
+      const emailResponse = await mailTo({ body: emailInfo });
+      if (!emailResponse.messageId) {
+        return res
+          .status(409)
+          .json({ message: "la notificacion no fue aprobada" });
+      } else {
+        console.log("Email sent successfully");
+      }
+    }
 
     const token = jwt.sign({ id: newUser.userID }, SECRET_KEY, { expiresIn: "1h" });
 
