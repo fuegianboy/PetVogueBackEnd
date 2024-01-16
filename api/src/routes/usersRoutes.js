@@ -11,6 +11,7 @@ const { removeCart } = require("../controllers/users/removeCart")
 /* const { isAuthenticated } = require("../utils/ValidateToken"); */
 const { registerUser } = require("../controllers/users/registerUser.controller");
 const { adminLogin } = require("../controllers/users/adminLogin.controller");
+const { destroyUser } = require("../controllers/users/destroyUser");
 
 
 const usersRoutes = Router();
@@ -27,5 +28,7 @@ usersRoutes.put("/removecart", removeCart);
 
 usersRoutes.post("/register", registerUser);
 usersRoutes.post("/admin/login", adminLogin)
+
+usersRoutes.delete("/del/:id", destroyUser)
 
 module.exports = usersRoutes;
