@@ -16,11 +16,11 @@ const getOrder = async (req, res) => {
             },
             {
                 model: Products,
-                attributes: ['name', 'description', 'type', 'price', 'status', 'stock',],
+                attributes: ['name', 'description', 'type', 'price', 'status', 'stock','image'],
             },
             {
                 model: Services,
-                attributes: ['name', 'description', 'category', 'price', 'status', 'animalType'],
+                attributes: ['name', 'description', 'category', 'price', 'status', 'animalType', 'image'],
             },
         ],
         order: [],
