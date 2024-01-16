@@ -30,6 +30,11 @@ const getUsers = async (req, res) => {
           [Op.iLike]: `%${filters.firstName_filter}%`,
         };
       }
+      if (filters.status_filter) {
+        queryOptions.where.status = {
+          [Op.like]: `%${filters.status_filter}%`,
+        };
+      }
 
       if (filters.date_order) {
         queryOptions.order.push(['date', filters.date_order]);

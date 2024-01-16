@@ -1,11 +1,12 @@
 const { Op } = require("sequelize");
 const { Users } = require("../../db");
 const jwt = require("jsonwebtoken");
+// const bcrypt = require("bcrypt");
 const SECRET_KEY = process.env.SECRET_KEY;
 const mailTo = require("../mailer/mailTo");
 const message = require("../mailer/message");
 
-const createUser = async (req, res) => {
+const registerUser = async (req, res) => {
   const {
     firstName,
     lastName,
@@ -21,29 +22,43 @@ const createUser = async (req, res) => {
   } = req.body;
 
   try {
-    console.log("Received registration request:", req.body); // Log de la solicitud recibida
-
-    if (!email) return res.status(404).json("Incomplete data");
-
-    const [user, created] = await Users.findOrCreate({
-      where: {
-        [Op.or]: [{ email }],
-      },
-      defaults: { ...req.body },
-    });
-
-    console.log("User created:", user.toJSON());
-    if (user.status !== "enabled") {
-      return res.status(401).json({
-        error: "Cuenta suspendida. Pongase en contacto con un administrador",
-      });
+    if (!email || !password) {
+      return res.status(400).json("Datos incompletos.");
     }
 
-    if (created) {
+    // Verifica si el email ya existe en la base de datos
+    const existingUser = await Users.findOne({
+      where: {
+        email,
+      },
+    });
+
+    if (existingUser) {
+      return res.status(400).json({ error: "Este correo electronico ya se encuentra registrado." });
+    }
+
+    // Hashea la contraseña antes de almacenarla en la base de datos
+    // const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Crea un nuevo usuario
+    const newUser = await Users.create({
+      firstName,
+      lastName,
+      email,
+      password,
+      systemRole,
+      phone,
+      photo,
+      address,
+      birth,
+      dni,
+      status,
+    });
+    if (newUser) {
       const emailInfo = {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        email: newUser.email,
         subject: "Registro Exitoso",
         html: `¡Bienvenido! Te has registrado exitosamente en PetVogue. ¡Esperamos que disfrutes de tu experiencia!`,
         link: "https://petvoguehome-production.up.railway.app/",
@@ -68,16 +83,13 @@ const createUser = async (req, res) => {
       }
     }
 
-    const token = jwt.sign({ id: user.userID }, SECRET_KEY, {
-      expiresIn: "1h",
-    });
-    console.log(token, "token");
+    const token = jwt.sign({ id: newUser.userID }, SECRET_KEY, { expiresIn: "1h" });
 
-    return res.status(200).json({ user, created, token });
+    return res.status(201).json({ user: newUser, token });
   } catch (error) {
-    console.error("Error processing registration:", error);
+    console.error(error);
     return res.status(500).json({ error: error.message });
   }
 };
 
-module.exports = { createUser };
+module.exports = { registerUser };

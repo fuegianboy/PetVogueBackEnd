@@ -25,6 +25,11 @@ const getPets = async (req, res) => {
           [Op.like]: `%${filters.name_filter}%`,
         };
       }
+      if (filters.userID_filter) {
+        queryOptions.where.userID = {
+            [Op.eq]: filters.userID_filter,
+        };
+      }
 
       if (filters.species_filter) {
         queryOptions.where.specie = {
