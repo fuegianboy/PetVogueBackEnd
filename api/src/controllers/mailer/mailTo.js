@@ -13,22 +13,19 @@ const mailTo = async (req, res) => {
       html,
       link,
     } = req.body
-
-    if (!firstName || !lastName || !email || !subject || !html || !link) {
-      return res.status(404).json("Incomplete data")
-    }
+    
 
     const userData = { firstName, lastName, email }
     const messageData = { subject, body: html, link }
     const info = await sendEmail(userData, messageData)
-    
-    console.error(info)
-    res.status(200).send("Email successfully sent");
+   
+   return info 
+ 
 
   } catch (error) {
 
     console.error(error)
-    res.status(400).send("Failed to send email")
+      res.status(400).send("Failed to send email") 
 
   }
 
