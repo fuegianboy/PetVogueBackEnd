@@ -27,6 +27,11 @@ module.exports = (sequelize) => {
     status: {
         type: DataTypes.STRING,
         allowNull: true,
+        defaultValue: "enabled"
+    },
+    productID: {
+      type: DataTypes.UUID,
+      allowNull: true,
     },
   },{timestamps:false});
 };
