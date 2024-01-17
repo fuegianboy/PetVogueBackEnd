@@ -12,6 +12,7 @@ const { removeCart } = require("../controllers/users/removeCart")
 const { registerUser } = require("../controllers/users/registerUser.controller");
 const { adminLogin } = require("../controllers/users/adminLogin.controller");
 const { destroyUser } = require("../controllers/users/destroyUser");
+const { emptyCart } = require("../controllers/users/emptyCart");
 
 
 const usersRoutes = Router();
@@ -25,6 +26,7 @@ usersRoutes.post("/login", loginUsers);
 
 usersRoutes.put("/addcart", addCart);
 usersRoutes.put("/removecart", removeCart);
+usersRoutes.put("/emptycart", emptyCart)
 
 usersRoutes.post("/register", registerUser);
 usersRoutes.post("/admin/login", adminLogin)
