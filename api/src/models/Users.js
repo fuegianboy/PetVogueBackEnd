@@ -69,5 +69,10 @@ module.exports = (sequelize) => {
       defaultValue: [],
       allowNull: true,
     },
+    cart2: {
+      type: DataTypes.ARRAY(DataTypes.JSONB),
+      defaultValue: [],
+      allowNull: true,
+    },
   },{timestamps:false});
 };
