@@ -56,7 +56,7 @@ const createOrders = async (req, res) => {
     detailText += `<p style="color: black; font-weight: bold;">Total  ----------------------: ${total}</p>`
 
     // Vacío el carrito de compras
-    const cart = await user.update({ cart: [] });
+    const cart = await user.update({ cart2: [] });
     // Vacío la tabla reference
     const disableReference = await reference.update({status: "disabled"})
     // Mando un correo al usuario
@@ -64,7 +64,7 @@ const createOrders = async (req, res) => {
     const emailData = {
       firstName: user.firstName,
       lastName: user.lastName,
-      email: "fuegianboy@gmail.com",
+      email: user.email,
       subject: `Pago Realizado`,
       html: detailText,
       link: "www.google.com",
