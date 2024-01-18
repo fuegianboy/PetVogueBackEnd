@@ -29,48 +29,49 @@ const createOrders = async (req, res) => {
         })
       }
 
-      const order = await Orders.create({
-        userID: reference.data.userID, 
-        productID, 
-        // serviceID, 
-        date: Date.now(), 
-        quantity, 
-        amount: product.price, 
-        type: "product", 
-        mp_status: status, 
-        mp_payment_id: payment_id, 
-        mp_merchant_order_id: merchant_order_id, 
-        mp_external_reference: external_reference
-
-      })
-      
+      if (reference.status === "enabled") {
+          const order = await Orders.create({
+            userID: reference.data.userID, 
+            productID, 
+            // serviceID, 
+            date: Date.now(), 
+            quantity, 
+            amount: product.price, 
+            type: "product", 
+            mp_status: status, 
+            mp_payment_id: payment_id, 
+            mp_merchant_order_id: merchant_order_id, 
+            mp_external_reference: external_reference
+          
+          })
+      }
       let subtotal = 0
       subtotal = quantity * product.price
       total = total + subtotal
 
       detailText += `<p style="color: black; font-weight: bold;">Producto: ${product.name} - Cantidad: ${quantity} - Precio: ${product.price} - SubTotal: ${subtotal}</p>`
 
-      // detailText += `Producto: ${product.name} - Cantidad: ${quantity} - Precio: ${product.price} - SubTotal: ${subtotal}<hr/> `;
     }
 
     detailText += `<p style="color: black; font-weight: bold;">Total  ----------------------: ${total}</p>`
 
-    // Vacío el carrito de compras
-    const cart = await user.update({ cart2: [] });
-    // Vacío la tabla reference
-    const disableReference = await reference.update({status: "disabled"})
-    // Mando un correo al usuario
+    if (reference.status === "enabled") {
+        // Vacío el carrito de compras
+        const cart = await user.update({ cart2: [] });
+        // Vacío la tabla reference
+        const disableReference = await reference.update({status: "disabled"})
+        // Mando un correo al usuario
+        const emailData = {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: "fuegianboy@gmail.com", //user.email,
+          subject: `Pago Realizado`,
+          html: detailText,
+          link: "www.google.com",
+        };
+        await mailTo({ body: emailData }, res);
+    }
 
-    const emailData = {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      subject: `Pago Realizado`,
-      html: detailText,
-      link: "www.google.com",
-    };
-
-    await mailTo({ body: emailData }, res);
 
     return res.status(200).redirect("https://petvoguehome-production.up.railway.app/");
   } catch (error) {
