@@ -11,10 +11,8 @@ const restoreProduct = async (req, res) => {
         }
 
         if (product[0] === 0) {
-            return res
-              .status(404)
-              .json({ message: "Producto no encontrado o ya está activado" });
-          }
+            return res.status(404).json({message: "Producto no encontrado o ya está activado"})
+        }
 
         await product.update({ status: 'enabled' });
 

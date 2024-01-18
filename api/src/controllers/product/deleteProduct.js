@@ -6,9 +6,15 @@ const deleteProduct = async (req, res) => {
 
     const product = await Products.findByPk(productID);
 
-    if (!product) {
-      return res.status(404).send("Producto no encontrado");
-    }
+        if (!product) {
+            return res.status(404).send('Producto no encontrado');
+        }
+
+        if (product[0] === 0 ) {
+            return res.status(404).json({message: "Producto no encontrado o ya está desactivado"})
+        }
+
+        await product.update({ status: 'disabled' });
 
     if (product[0] === 0) {
       return res
