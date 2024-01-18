@@ -44,7 +44,8 @@ const mercadoPago = async (req, res) => {
       items: preferenceItems,
       back_urls: {
         success: `${req.protocol}://${req.get("host")}/mercadopago/success`,
-        failure: `${req.protocol}://${req.get("host")}/mercadopago/reject`,
+        failure: `https://petvoguehome-production.up.railway.app/compraFallida`,
+        // failure: `${req.protocol}://${req.get("host")}/mercadopago/reject`,
       },
       auto_return: "approved",
       external_reference,
