@@ -13,6 +13,7 @@ const { registerUser } = require("../controllers/users/registerUser.controller")
 const { adminLogin } = require("../controllers/users/adminLogin.controller");
 const { destroyUser } = require("../controllers/users/destroyUser");
 const { emptyCart } = require("../controllers/users/emptyCart");
+const { roleUser } = require("../controllers/users/roleUser");
 
 
 const usersRoutes = Router();
@@ -32,5 +33,7 @@ usersRoutes.post("/register", registerUser);
 usersRoutes.post("/admin/login", adminLogin)
 
 usersRoutes.delete("/del/:id", destroyUser)
+
+usersRoutes.put("/change/:id", roleUser)
 
 module.exports = usersRoutes;
