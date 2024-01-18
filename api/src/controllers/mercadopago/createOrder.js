@@ -21,7 +21,7 @@ const createOrders = async (req, res) => {
 
       const product = await Products.findByPk(productID)
       
-      if (product) {
+      if (product && reference.status === "enabled") {
         const finalStock = product.stock -quantity
         await product.update({
           stock: finalStock >= 0 ? finalStock : product.stock,
