@@ -10,6 +10,10 @@ const deleteProduct = async (req, res) => {
             return res.status(404).send('Producto no encontrado');
         }
 
+        if (product[0] === 0 ) {
+            return res.status(404).json({message: "Producto no encontrado o ya está desactivado"})
+        }
+
         await product.update({ status: 'disabled' });
 
         return res.sendStatus(200);
