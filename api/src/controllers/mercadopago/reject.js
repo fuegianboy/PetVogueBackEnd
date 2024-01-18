@@ -8,10 +8,14 @@ mercadopago.configure({
 
 const reject = async (req, res) => {
 
-    console.log("pago rechazado por algun motivo")
-    // console.error(error)
-    res.json("error.message-------------llegaste")
-  
+    try {
+        const errorMessage = "El pago no se pudo realizar. Por favor, inténtelo de nuevo.";
+        res.send(`<script>alert('${errorMessage}'); window.location.href = 'https://petvoguehome-production.up.railway.app/';</script>`);
+    } catch (error) {
+        
+        console.error(error);
+        res.status(500).json({ error: "Error interno del servidor", details: error.message });
+        }  
     }
   
   module.exports = reject
