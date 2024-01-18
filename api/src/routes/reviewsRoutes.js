@@ -14,7 +14,7 @@ reviewsRoutes.post("/create", createReview)
 reviewsRoutes.delete("/delete/:reviewID", deleteReview)
 reviewsRoutes.delete("/activate/:reviewID", activateReview) 
 reviewsRoutes.get("/get", allReview)
-reviewsRoutes.post("/get", getReviews)
+reviewsRoutes.post("/all", getReviews)
 reviewsRoutes.delete("/destroy/:id", destroyReview)
 
 
