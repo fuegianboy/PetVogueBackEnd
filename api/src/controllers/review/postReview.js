@@ -3,20 +3,18 @@ const { Reviews } = require('../../db');
 const createReview = async (req, res) => {
     try {
         const {
-            reviewID,
             orderID, 
             review,
-            status,
+            productID
         } = req.body;
 
         const currentDate = new Date();
 
         const newReview = await Reviews.create({
-            reviewID,
             orderID, 
             date: currentDate, 
             review,
-            status,
+            productID
         });
 
         if (!newReview) {
