@@ -43,7 +43,8 @@ const mercadoPago = async (req, res) => {
     const preferences = {
       items: preferenceItems,
       back_urls: {
-        success: `${req.protocol}://${req.get("host")}/`,
+        success: `https://petvoguehome-production.up.railway.app`,
+        // success: `${req.protocol}://${req.get("host")}/`,
         failure: `${req.protocol}://${req.get("host")}/mercadopago/reject`,
       },
       notification_url: "https://petvoguehome-production.up.railway.app/success",
