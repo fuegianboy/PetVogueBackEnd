@@ -72,7 +72,7 @@ const createOrders = async (req, res) => {
 
     await mailTo({ body: emailData }, res);
 
-    return res.status(200);
+    return res.status(200).redirect("https://petvoguehome-production.up.railway.app/");
   } catch (error) {
     console.error('Error al editar Order:', error);
     return res.status(500).send('Error interno del servidor');
