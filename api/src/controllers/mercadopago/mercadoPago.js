@@ -47,7 +47,7 @@ const mercadoPago = async (req, res) => {
         // success: `${req.protocol}://${req.get("host")}/`,
         failure: `${req.protocol}://${req.get("host")}/mercadopago/reject`,
       },
-      notification_url: "https://petvoguehome-production.up.railway.app/success",
+      notification_url: "https://petvoguehome-production.up.railway.app/mercadopago/success",
       auto_return: "approved",
       external_reference,
     };
