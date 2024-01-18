@@ -64,10 +64,10 @@ const createOrders = async (req, res) => {
         const emailData = {
           firstName: user.firstName,
           lastName: user.lastName,
-          email: "fuegianboy@gmail.com", //user.email,
+          email: user.email,
           subject: `Pago Realizado`,
           html: detailText,
-          link: "www.google.com",
+          link: "https://petvoguehome-production.up.railway.app/",
         };
         await mailTo({ body: emailData }, res);
     }
