@@ -43,11 +43,12 @@ const mercadoPago = async (req, res) => {
     const preferences = {
       items: preferenceItems,
       back_urls: {
-        success: `https://petvoguehome-production.up.railway.app`,
+        // success: `https://petvoguehome-production.up.railway.app`,
         // success: `${req.protocol}://${req.get("host")}/`,
+        success: `${req.protocol}://${req.get("host")}/mercadopago/success`,
         failure: `${req.protocol}://${req.get("host")}/mercadopago/reject`,
       },
-      notification_url: "https://petvoguehome-production.up.railway.app/mercadopago/success",
+      // notification_url: "https://aa7b-179-39-99-192.ngrok-free.app/mercadopago/success",
       auto_return: "approved",
       external_reference,
     };
